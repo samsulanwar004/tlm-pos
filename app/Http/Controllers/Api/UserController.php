@@ -37,15 +37,9 @@ class UserController extends Controller
 
     	$user = $request->user();
 
-    	$total = 0;
-    	foreach ($value['orders'] as $product) {
-    		$total += $product['price'] * $product['qty'];
-    	}
-
     	$order = Order::create([
     		'tenant_id' => $user->id,
-    		'number_reference' => date('Ymdhis'),
-    		'total' => $total
+    		'number_reference' => date('Ymdhis')
     	]);
 
     	foreach ($value['orders'] as $product) {

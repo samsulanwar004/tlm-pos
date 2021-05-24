@@ -28,7 +28,6 @@ class CreateMasterOrdersTable extends Migration
             $table->id();
             $table->unsignedInteger('master_order_id');
             $table->unsignedInteger('order_id');
-            $table->double('price');
             $table->timestamps();
         });
     }

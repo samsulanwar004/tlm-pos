@@ -2193,8 +2193,7 @@ var Pos = function Pos(props) {
                 headers: headers,
                 method: "POST",
                 body: JSON.stringify({
-                  email: 'test@example.com',
-                  password: 'password'
+                  orders: orders
                 })
               });
 

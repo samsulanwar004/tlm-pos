@@ -61,8 +61,7 @@ const Pos = (props) => {
       headers,
       method: "POST",
       body: JSON.stringify({
-        email: 'test@example.com',
-        password: 'password'
+        orders: orders,
       })
     });
 

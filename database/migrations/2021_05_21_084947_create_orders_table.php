@@ -18,7 +18,6 @@ class CreateOrdersTable extends Migration
             $table->unsignedInteger('tenant_id');
             $table->string('number_reference')->nullable();
             $table->string('status', 1)->default(0);
-            $table->double('total');
             $table->timestamps();
         });
 

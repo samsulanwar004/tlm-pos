@@ -38,7 +38,6 @@ class PointOfSaleController extends Controller
                 'order_id' => $order->id,
                 'tenant_name' => $order->tenant->name,
                 'number_reference' => $order->number_reference,
-                'total' => $order->total,
                 'orders' => $orders->map(function($r) {
                     return [
                         'product_name' => $r->product_name,
