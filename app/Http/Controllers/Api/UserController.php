@@ -35,22 +35,22 @@ class UserController extends Controller
 
         $value = $request->all();
 
-    	// $user = $request->user();
+    	$user = $request->user();
 
-    	// $order = Order::create([
-    	// 	'tenant_id' => $user->id,
-    	// 	'number_reference' => date('Ymdhis')
-    	// ]);
+    	$order = Order::create([
+    		'tenant_id' => $user->id,
+    		'number_reference' => date('Ymdhis')
+    	]);
 
-    	// foreach ($value['orders'] as $product) {
-    	// 	OrderDetail::create([
-	    // 		'order_id' => $order->id,
-	    // 		'product_name' => $product['product_name'],
-	    // 		'price'  => $product['price'],
-	    // 		'qty'  => $product['qty'],
-	    // 	]);
-    	// }
+    	foreach ($value['orders'] as $product) {
+    		OrderDetail::create([
+	    		'order_id' => $order->id,
+	    		'product_name' => $product['product_name'],
+	    		'price'  => $product['price'],
+	    		'qty'  => $product['qty'],
+	    	]);
+    	}
 
-    	return $this->success('success', $value);
+    	return $this->success('success', $order);
     }
 }
