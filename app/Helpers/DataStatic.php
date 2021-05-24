@@ -15,7 +15,8 @@ class DataStatic
     public static function status_order(){
         return array(
             0 =>'Process',
-            1 =>'Done',
+            1 =>'Success',
+            2 =>'Cancel',
         );
     }
 

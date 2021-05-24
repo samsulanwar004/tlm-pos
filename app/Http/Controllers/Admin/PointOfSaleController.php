@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Order;
 use App\Models\OrderDetail;
+use App\Models\MasterOrder;
+use App\Models\MasterOrderDetail;
 
 class PointOfSaleController extends Controller
 {
@@ -56,6 +58,30 @@ class PointOfSaleController extends Controller
     public function processOrder(Request $request)
     {
         $value = $request->all();
-        return $this->success('success', $value);
+
+        $user = $request->user();
+
+        $status = 0;
+        if ($value['type'] == 0 || $value['type'] == 1) {
+            $status = 1;
+
+            Order::whereIn('id', $value['orders'])->update(['status' => $status]);
+        }
+
+        $order = MasterOrder::create([
+            'type_payment' => $value['type'],
+            'status' => $status,
+            'number_reference' => date('Ymdhis'),
+            'created_by' => $user->id
+        ]);
+
+        foreach ($value['orders'] as $orderid) {
+            MasterOrderDetail::create([
+                'master_order_id' => $order->id,
+                'order_id' => $orderid
+            ]);
+        }
+
+        return $this->success('success', $order);
     }
 }

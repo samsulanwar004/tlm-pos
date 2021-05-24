@@ -10,6 +10,8 @@ const Pos = (props) => {
   async function fetchOrderId(e) {
     e.preventDefault();
 
+    setOrderId('')
+
     let orderOld = orders;
     let findOrder =  orderOld.find(r => r.order_id == orderId);
 
@@ -61,15 +63,25 @@ const Pos = (props) => {
       headers,
       method: "POST",
       body: JSON.stringify({
-        orders: orders,
+        type: type,
+        orders: orders.map(r => {
+          return r.order_id
+        }),
       })
     });
 
     const {data, message} = await response.json();
 
     if (message == 'success') {
-
       Swal.close()
+      Swal.fire({
+        icon: 'success',
+        title: 'Transaction',
+        text: 'Success'
+      })
+      
+      setOrders(Array())
+      setType(0)
     } else {
       Swal.close()
       Swal.fire({
@@ -109,7 +121,7 @@ const Pos = (props) => {
                   <div className="col-md-3">
                     <div className="form-group">
                       <label htmlFor="orderid">Order ID</label>
-                      <input onChange={(e) => setOrderId(e.target.value)} type="text" className="form-control" placeholder="Search Order ID" />
+                      <input onChange={(e) => setOrderId(e.target.value)} value={orderId} type="text" className="form-control" placeholder="Search Order ID" />
                     </div>
                     <div className="form-group float-right">
                       <button onClick={(e) => fetchOrderId(e)} className="btn btn-primary btn-sm">Search</button>

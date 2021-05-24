@@ -19,8 +19,8 @@ class CreateMasterOrdersTable extends Migration
             $table->string('status', 1)->default(0);
             $table->string('type_payment', 1)->default(0);
             $table->text('json_response')->nullable();
-            $table->unsignedInteger('created_by');
-            $table->unsignedInteger('modify_by');
+            $table->unsignedInteger('created_by')->nullable();
+            $table->unsignedInteger('modify_by')->nullable();
             $table->timestamps();
         });
 

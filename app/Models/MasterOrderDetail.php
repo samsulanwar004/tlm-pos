@@ -5,15 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class OrderDetail extends Model
+class MasterOrderDetail extends Model
 {
     use HasFactory;
 
     protected $table = 'master_order_details';
     protected $fillable = [
     	'master_order_id',
-    	'order_id',
-    	'price'
+    	'order_id'
     ];
 
     public function masterOrder()
