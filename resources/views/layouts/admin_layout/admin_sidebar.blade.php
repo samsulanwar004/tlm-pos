@@ -48,7 +48,7 @@
               <p>Point Of Sale</p>
             </a>
           </li>
-          @if(Auth::user()->hasAnyRole(['super-admin', 'admin']))
+          @if(Auth::user()->hasAnyRole(['super-admin']))
             <li class="nav-item has-treeview" menu="administrator">
               <a href="#" class="nav-link">
                 <i class="nav-icon fas fa-tachometer-alt"></i>
