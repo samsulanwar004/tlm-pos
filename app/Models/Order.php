@@ -13,8 +13,7 @@ class Order extends Model
     protected $fillable = [
     	'tenant_id',
     	'number_reference',
-    	'status',
-        'total'
+    	'status'
     ];
 
     public function order_details()
