@@ -20,6 +20,15 @@ class UserController extends Controller
         $user = $request->user();
         $user->status = $this->static->status()[$user->status];
 
+        $words = explode(" ", $user->name);
+        $initialUser = "";
+
+        foreach ($words as $w) {
+          $initialUser .= $w[0];
+        }
+
+        $user->initial_user = strtoupper($initialUser);
+
         return $this->success('success', $user);
     }
 
