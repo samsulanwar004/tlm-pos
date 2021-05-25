@@ -27,6 +27,7 @@ Route::group([
 		Route::get('pos', 'PointOfSaleController@index')->name('pos.index');
 		Route::get('pos/search_order/{orderid}', 'PointOfSaleController@searchOrder')->name('pos.search_order');
 		Route::post('pos/process_order', 'PointOfSaleController@processOrder')->name('pos.process_order');
+		Route::resource('history', 'HistoryController');
 
 		Route::group([
 			'middleware' => [], 

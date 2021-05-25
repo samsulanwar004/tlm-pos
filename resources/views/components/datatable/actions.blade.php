@@ -10,3 +10,6 @@
 @if(isset($approveRoute))
 	<a href="{{ $approveRoute }}" class="btn btn-success btn-sm text-white"><i class="fas fa-clipboard-check"></i> Approve</a>
 @endif
+@if(isset($showRoute))
+    <a href="{{ $showRoute }}" class="btn btn-success btn-sm text-white"><i class="fa fa-eye"></i> Show</a>
+@endif

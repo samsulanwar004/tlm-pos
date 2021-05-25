@@ -19,4 +19,9 @@ class MasterOrderDetail extends Model
     {
         return $this->belongsTo('App\Models\MasterOrder', 'master_order_id', 'id');
     }
+
+    public function order()
+    {
+        return $this->belongsTo('App\Models\Order', 'order_id', 'id');
+    }
 }

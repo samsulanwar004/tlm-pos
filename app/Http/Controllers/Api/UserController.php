@@ -62,4 +62,25 @@ class UserController extends Controller
 
     	return $this->success('success', $order);
     }
+
+    public function history(Request $request)
+    {
+
+        $value = $request->all();
+
+        $user = $request->user();
+
+        $orders = Order::where('tenant_id', $user->id)
+            ->take(isset($value['limit']) ? $value['limit'] : 100)
+            ->skip(isset($value['offset']) ? $value['offset'] : 0)
+            ->orderBy('id', 'DESC')
+            ->get();
+
+        foreach ($orders as $key => $order) {
+            $orders[$key]->status = $this->static->status_order()[$order->status];
+            $orders[$key]->order_details = OrderDetail::where('order_id', $order->id)->select('product_name', 'qty', 'price')->get();
+        }
+
+        return $this->success('success', $orders);
+    }
 }

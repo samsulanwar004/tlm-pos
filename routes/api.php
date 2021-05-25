@@ -28,4 +28,5 @@ Route::group([
 ], function () {
     Route::get('profile', 'UserController@profile');
     Route::post('order', 'UserController@order');
+    Route::get('history', 'UserController@history');
 });

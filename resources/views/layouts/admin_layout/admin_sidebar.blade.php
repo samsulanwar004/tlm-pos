@@ -48,6 +48,12 @@
               <p>Point Of Sale</p>
             </a>
           </li>
+          <li class="nav-item">
+            <a href="{{ route('history.index') }}" class="nav-link" menu="history">
+              <i class="nav-icon fas fa-history"></i>
+              <p>History</p>
+            </a>
+          </li>
           @if(Auth::user()->hasAnyRole(['super-admin']))
             <li class="nav-item has-treeview" menu="administrator">
               <a href="#" class="nav-link">

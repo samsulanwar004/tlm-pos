@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
  
 const Pos = (props) => {
  
-  const [orderId, setOrderId] = useState(null);
+  const [orderId, setOrderId] = useState('');
   const [type, setType] = useState(0);
   const [orders, setOrders] = useState(Array());
 
@@ -44,6 +44,16 @@ const Pos = (props) => {
 
   async function processOrder(e) {
     e.preventDefault();
+
+    if (orders.length <= 0) {
+      Swal.fire({
+        icon: 'warning',
+        title: 'Opps...',
+        text: 'Empty cart'
+      })
+
+      return
+    }
 
     Swal.fire({
       title: 'Please Wait !',
@@ -121,10 +131,15 @@ const Pos = (props) => {
                   <div className="col-md-3">
                     <div className="form-group">
                       <label htmlFor="orderid">Order ID</label>
-                      <input onChange={(e) => setOrderId(e.target.value)} value={orderId} type="text" className="form-control" placeholder="Search Order ID" />
-                    </div>
-                    <div className="form-group float-right">
-                      <button onClick={(e) => fetchOrderId(e)} className="btn btn-primary btn-sm">Search</button>
+                      <input 
+                        onChange={(e) => setOrderId(e.target.value)} 
+                        onKeyDown={(e) => e.key == 'Enter' ? fetchOrderId(e) : '' } 
+                        value={orderId} 
+                        type="text" 
+                        className="form-control" 
+                        placeholder="Search Order ID"
+                        autoFocus 
+                      />
                     </div>
                   </div>
                   <div className="col-md-9 table-responsive">

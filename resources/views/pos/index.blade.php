@@ -1,3 +1,4 @@
+@section('title', 'Point Of Sale')
 @extends('layouts.admin_layout.admin_layout')
 @section('content')
 
