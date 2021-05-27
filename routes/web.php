@@ -48,5 +48,17 @@ Route::group([
 		    Route::resource('permission', 'PermissionController')->middleware(['role:super-admin']);
 		    Route::resource('role', 'RoleController')->middleware(['role:super-admin']);
 		});
+
+		Route::group([
+			'middleware' => [], 
+			'as' => 'report.', 
+			'prefix' => 'report', 
+			'namespace' => 'Report'
+		], function() {
+		    Route::get('report_order', 'ReportController@index')->middleware(['permission:report_order'])->name('order.index');
+		    Route::post('report_order', 'ReportController@view')->middleware(['permission:report_order'])->name('order.view');
+		    Route::get('export_report_order', 'ReportController@export')->middleware(['permission:report_order'])->name('order.export');
+		    Route::get('order_tenant', 'ReportController@getTenant')->name('order.tenant');
+		});
 	});
 });

@@ -54,6 +54,18 @@
               <p>History</p>
             </a>
           </li>
+          <li class="nav-item has-treeview" menu="report">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-book"></i>
+              <p>
+                Report
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <x-menu.li label="Report Order" route="report.order.index" menu="report_order"/>
+            </ul>
+          </li>
           @if(Auth::user()->hasAnyRole(['super-admin']))
             <li class="nav-item has-treeview" menu="administrator">
               <a href="#" class="nav-link">
