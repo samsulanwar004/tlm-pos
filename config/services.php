@@ -30,4 +30,8 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+    'key_url_onesignal' => env('KEY_URL_ONESIGNAL'),
+    'key_api_onesignal' => env('KEY_API_ONESIGNAL'),
+    'key_appid_onesignal' => env('KEY_APPID_ONESIGNAL')
+
 ];

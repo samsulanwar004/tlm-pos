@@ -8,6 +8,8 @@ use App\Models\Order;
 use App\Models\OrderDetail;
 use App\Models\MasterOrder;
 use App\Models\MasterOrderDetail;
+use App\Models\Xplayer;
+use App\Services\ClientService;
 
 class PointOfSaleController extends Controller
 {
@@ -80,6 +82,39 @@ class PointOfSaleController extends Controller
                 'master_order_id' => $order->id,
                 'order_id' => $orderid
             ]);
+        }
+
+        if($status == 1) {
+            $xplayer = Xplayer::leftJoin('orders', 'orders.tenant_id', 'x_player.user_id')
+                ->whereIn('orders.id', $value['orders'])
+                ->select('x_player.player_id', 'orders.id as order_id')
+                ->get();
+
+            if (count($xplayer) > 0) {
+
+                $url = config('services.key_url_onesignal');
+                $token = config('services.key_api_onesignal');
+                $appid = config('services.key_appid_onesignal');
+
+                $header = [
+                    'Basic' => $token,
+                ];
+
+                foreach ($xplayer as $value) {
+                    $data = [
+                        'app_id' => $appid,
+                        'headings' => [
+                            'en' => 'Payment'
+                        ],
+                        'contents' => [
+                            'en' => 'Order ID : '.$value->order_id.' success'
+                        ],
+                        'include_player_ids' => [$value->player_id]
+                    ];
+
+                    $client = (new ClientService)->request('post', $url, 'json', $header, $data);
+                }
+            }
         }
 
         return $this->success('success', $order);
