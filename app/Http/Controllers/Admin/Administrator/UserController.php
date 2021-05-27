@@ -104,7 +104,7 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Admin $user)
+    public function edit(User $user)
     {
         $userLogin = $this->getUserActive();
 
@@ -121,7 +121,7 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Admin $user)
+    public function update(Request $request, User $user)
     {
         $this->validate($request, [
             'name' => 'required|string|max:255',
@@ -148,7 +148,7 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Admin $user)
+    public function destroy(User $user)
     {
         $user->delete();
     }
