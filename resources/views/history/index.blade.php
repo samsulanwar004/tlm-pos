@@ -38,7 +38,7 @@
                 <div class="table large">
                   <x-datatable.table>
                     <th data-data="DT_RowIndex" class="font-weight-bold text-center text-uppercase" data-orderable="false" data-searchable="false">No</th>
-                    <th data-data="id" class="font-weight-bold text-center text-uppercase">Order ID</th>
+                    <th data-data="id" class="font-weight-bold text-center text-uppercase">Master Order ID</th>
                     <th data-data="number_reference" class="font-weight-bold text-center text-uppercase">Number Reference</th>
                     <th data-data="status" class="font-weight-bold text-center text-uppercase">Status</th>
                     <th data-data="action" class="font-weight-bold text-center text-uppercase" data-orderable="false" data-searchable="false" style="width: 8%">Action</th>

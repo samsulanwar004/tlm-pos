@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Helpers\DataStatic;
 use App\Models\Order;
 use App\Models\OrderDetail;
+use Storage;
 
 class UserController extends Controller
 {
@@ -52,11 +53,28 @@ class UserController extends Controller
     	]);
 
     	foreach ($value['orders'] as $product) {
+
+            if ($product['image'] != null) {
+                $filename = sprintf(
+                    "%s-%s-%s.%s",
+                    strtolower(str_replace(' ', '', $user->username)),
+                    strtolower(str_replace(' ', '', $product['product_name'])),
+                    date('Ymdhis'),
+                    'jpg'
+                );
+
+                //upload file
+                Storage::disk('public')->put('/upload/product/'.$filename, base64Image($product['image']));
+
+                $product['image'] = $filename;
+            }
+
     		OrderDetail::create([
 	    		'order_id' => $order->id,
 	    		'product_name' => $product['product_name'],
 	    		'price'  => $product['price'],
 	    		'qty'  => $product['qty'],
+                'image'  => $product['image'],
 	    	]);
     	}
 

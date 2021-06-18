@@ -12,23 +12,37 @@
                     <thead>
                         <tr>
                             <th>Product</th>
+                            <th>Photo</th>
                             <th>Price</th>
                             <th>Qty</th>
-                            <th>Subtotal</th>
+                            <th class="text-right">Subtotal</th>
                         </tr>
                     </thead>
                     <tbody>
+                        @php
+                            $total = 0;
+                        @endphp
                         @foreach($data->masterOrderDetail as $value)
                             @foreach($value->order->order_details as $detail)
                                 <tr>
                                     <td>{{$detail->product_name}}</td>
-                                    <td>{{$detail->price}}</td>
+                                    <td><a href="#" id="img-attchment"><img src="{{asset('storage/upload/product/'.$detail->image)}}" class="rounded" style="width: 60px;"/> </a></td>
+                                    <td>{{number_format($detail->price, 0, ',', '.')}}</td>
                                     <td>{{$detail->qty}}</td>
-                                    <td>{{$detail->price * $detail->qty}}</td>
+                                    <td class="text-right">{{number_format($detail->price * $detail->qty, 0, ',', '.')}}</td>
                                 </tr>
+                                @php
+                                    $total += $detail->price * $detail->qty;
+                                @endphp
                             @endforeach
                         @endforeach
                     </tbody>
+                    <tfoot>
+                        <tr>
+                            <th colspan="4" class="text-right">Total</th>
+                            <th class="text-right">{{number_format($total, 0, ',', '.')}}</th>
+                        </tr>
+                    </tfoot>
                 </table>
             </div>
         </div>
@@ -39,5 +53,18 @@
         <a href="{{ route('history.index') }}" class="btn btn-secondary">Back</a>
     </div>
 </div>
+
+@section('footer_scripts')
+<script type="text/javascript">
+    $(function () {
+        $(document).on('click', '#img-attchment', function(e) {
+            Swal.fire({
+              imageUrl: e.target.src,
+              imageAlt: 'Custom image',
+            });
+        });  
+    });
+</script>
+@endsection
 
 

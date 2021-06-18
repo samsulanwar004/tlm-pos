@@ -47,6 +47,7 @@ class PointOfSaleController extends Controller
                         'product_name' => $r->product_name,
                         'price' => $r->price,
                         'qty' => $r->qty,
+                        'image' => asset('storage/upload/product/'.$r->image),
                     ];
                 })
             ];

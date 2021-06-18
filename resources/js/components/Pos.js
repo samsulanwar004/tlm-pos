@@ -102,6 +102,15 @@ const Pos = (props) => {
     }
   }
 
+  function openPhoto(e, link) {
+    e.preventDefault();
+
+    Swal.fire({
+      imageUrl: link,
+      imageAlt: 'Custom image',
+    });
+  }
+
   useEffect(() => {
 
   }, []);
@@ -115,6 +124,10 @@ const Pos = (props) => {
     }
 
     return tot;
+  }
+
+  const numberFormat = (x) => {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
   }
 
   return (
@@ -147,9 +160,10 @@ const Pos = (props) => {
                       <thead>
                         <tr>
                           <th>Product</th>
+                          <th>Photo</th>
                           <th>Price</th>
                           <th>Qty</th>
-                          <th>Subtotal</th>
+                          <th className="text-right">Subtotal</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -158,9 +172,10 @@ const Pos = (props) => {
                             return (
                               <tr key={k}>
                                 <td>{d.product_name}</td>
-                                <td>{d.price}</td>
+                                <td><a href="#" onClick={(e) => openPhoto(e, d.image)}><img src={d.image} className="rounded" style={{width: '60px'}}/> </a></td>
+                                <td>{numberFormat(d.price)}</td>
                                 <td>{d.qty}</td>
-                                <td>{d.price * d.qty}</td>
+                                <td className="text-right">{numberFormat(d.price * d.qty)}</td>
                               </tr>
                             )
                           })
@@ -193,7 +208,7 @@ const Pos = (props) => {
                               <tbody>
                                   <tr>
                                     <th style={{width: '50%'}}>Total:</th>
-                                    <td>{total()}</td>
+                                    <th class="text-right">{numberFormat(total())}</th>
                                   </tr>
                               </tbody>
                           </table>

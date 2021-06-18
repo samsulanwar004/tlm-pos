@@ -27,6 +27,7 @@ class CreateOrdersTable extends Migration
             $table->string('product_name');
             $table->double('price');
             $table->unsignedInteger('qty');
+            $table->text('image')->nullable();
             $table->timestamps();
         });
     }
