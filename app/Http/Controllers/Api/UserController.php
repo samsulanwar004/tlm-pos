@@ -54,7 +54,7 @@ class UserController extends Controller
 
     	foreach ($value['orders'] as $product) {
 
-            if ($product['image'] != null) {
+            if (isset($product['image']) && $product['image'] != null) {
                 $filename = sprintf(
                     "%s-%s-%s.%s",
                     strtolower(str_replace(' ', '', $user->username)),

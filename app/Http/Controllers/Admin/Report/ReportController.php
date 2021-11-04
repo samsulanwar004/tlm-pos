@@ -142,6 +142,7 @@ class ReportController extends Controller
             if($value['tenant']) {
                 $query->whereIn('tenants.id', [$value['tenant']]);
             }
+        $query->where('orders.status', 1);
 
         return $query->orderBy('tenants.name')->get();
     }
