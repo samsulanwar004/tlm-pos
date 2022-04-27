@@ -31,7 +31,12 @@ class AuthController extends Controller
             'status' => 0,
         ];
 
-        Tenant::create($insert);
+        $tenant = Tenant::create($insert);
+
+        Xplayer::create([
+            'user_id' => $tenant->id,
+            'player_id' => $request->input('player_id')
+        ]);
 
         return $this->success('success', 'Pendaftaran berhasil, segera lakukan verifikasi data ke admin kami.');
     }

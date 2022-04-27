@@ -6,8 +6,10 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 use App\Models\Tenant;
+use App\Models\Xplayer;
 use App\Helpers\DataStatic;
 use App\Rules\Lowercase;
+use App\Services\ClientService;
 
 class TenantController extends Controller
 {
@@ -28,7 +30,7 @@ class TenantController extends Controller
         if ($request->ajax()) {
             return $this->datatable($request);
         }
-      
+
         return view($this->prefix.'.index');
     }
 
@@ -144,7 +146,40 @@ class TenantController extends Controller
             'status' => $value['status'],
         ];
 
+        $lastStatus = $tenant->status;
+
         $tenant->update($update);
+
+        if($value['status'] == 1 && $lastStatus == 0) {
+
+            $xplayer = Xplayer::where('user_id', $tenant->id)
+                ->select('player_id')
+                ->first();
+
+            if ($xplayer) {
+
+                $url = config('services.key_url_onesignal');
+                $token = config('services.key_api_onesignal');
+                $appid = config('services.key_appid_onesignal');
+
+                $header = [
+                    'Basic' => $token,
+                ];
+
+                $data = [
+                    'app_id' => $appid,
+                    'headings' => [
+                        'en' => 'Register'
+                    ],
+                    'contents' => [
+                        'en' => 'Account anda telah active, silahkan login.'
+                    ],
+                    'include_player_ids' => [$xplayer->player_id]
+                ];
+
+                $client = (new ClientService)->request('post', $url, 'json', $header, $data);
+            }
+        }
 
         return redirect()->route($this->prefix.'.index')->with('success', 'Success update tenant');
     }
